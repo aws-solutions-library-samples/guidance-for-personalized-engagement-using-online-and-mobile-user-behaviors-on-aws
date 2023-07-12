@@ -1,11 +1,16 @@
-## My Project
+# Guidance for Digital Customer Engagement on AWS
 
-TODO: Fill this README out!
+## Introduction
 
-Be sure to:
+## Prerequisites
 
-* Change the title in this README
-* Edit your repository description on GitHub
+## Architecture Diagram
+
+## Modules
+
+### 2-DataCollection/FirehoseDestination
+
+A Cloud Formation template for createing a Amazon Kinesis Firehose Delivery Stream to be used as RudderStack destination.
 
 ## Security
 
