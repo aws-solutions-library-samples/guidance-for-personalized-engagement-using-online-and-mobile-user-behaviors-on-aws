@@ -8,6 +8,10 @@
 
 ## Modules
 
+### 2-DataCollection/DataPlaneDeployment
+
+A Comprehensive guide to deploying the RudderStack Data Plane service on Amazon EKS for production use.
+
 ### 2-DataCollection/FirehoseDestination
 
 A Cloud Formation template for createing a Amazon Kinesis Firehose Delivery Stream to be used as RudderStack destination.
