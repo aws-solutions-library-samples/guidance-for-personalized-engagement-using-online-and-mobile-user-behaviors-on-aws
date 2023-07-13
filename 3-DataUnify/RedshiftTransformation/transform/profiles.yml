@@ -1,0 +1,14 @@
+default:
+  outputs:
+
+    prod:
+      type: redshift
+      threads: 1
+      host: "{{ env_var('DBT_DW_HOST') }}"
+      port: "{{ env_var('DBT_DW_PORT') | as_number }}"
+      user: "{{ env_var('DBT_DW_USER') }}"
+      pass: "{{ env_var('DBT_DW_PASS') }}"
+      dbname: "{{ env_var('DBT_DW_DB') }}"
+      schema: "{{ env_var('DBT_DW_SCHEMA') }}"
+
+  target: prod

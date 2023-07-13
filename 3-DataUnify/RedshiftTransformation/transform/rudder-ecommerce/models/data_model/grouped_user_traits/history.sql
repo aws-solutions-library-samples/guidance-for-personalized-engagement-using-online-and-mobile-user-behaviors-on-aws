@@ -1,0 +1,5 @@
+select {{ var('main_id')}}, 'days_since_account_creation' as feature_name, {{get_end_timestamp()}} as end_timestamp, days_since_account_creation as feature_value_numeric, null as feature_value_string, null as feature_value_array, 'numeric' as feature_type from {{ref('days_since_account_creation')}}
+union
+select {{ var('main_id')}}, 'payment_modes' as feature_name, {{get_end_timestamp()}} as end_timestamp, null as feature_value_numeric, null as feature_value_string, payment_modes as feature_value_array, 'array' as feature_type from {{ref('payment_modes')}}
+union
+select {{ var('main_id')}}, 'campaign_sources' as feature_name, {{get_end_timestamp()}} as end_timestamp, null as feature_value_numeric, null as feature_value_string, campaign_sources as feature_value_array, 'array' as feature_type from {{ref('campaign_sources')}}

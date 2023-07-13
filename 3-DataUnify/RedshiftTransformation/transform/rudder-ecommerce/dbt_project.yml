@@ -1,0 +1,153 @@
+name: 'ecommerce_data_model_dbt'
+version: '1.0.0'
+config-version: 2
+
+# This setting configures which "profile" dbt uses for this project.
+profile: 'default'
+
+# These configurations specify where dbt should look for different types of files.
+model-paths: ["models"]
+analysis-paths: ["analyses"]
+test-paths: ["tests"]
+seed-paths: ["seeds"]
+macro-paths: ["macros"]
+snapshot-paths: ["snapshots"]
+
+target-path: "target"  # directory which will store compiled SQL files
+clean-targets:         # directories to be removed by `dbt clean`
+  - "target"
+  - "dbt_packages"
+
+
+models:
+  ecommerce_data_model_dbt:
+    # Config indicated by + and applies to all files under models/data_model/
+    data_model:
+      +materialized: ephemeral
+    intermediate: 
+      +materialized: table
+    customer_journey:
+      # Applies to all files under models/example/
+      +materialized: view
+
+
+vars:
+  rs_database: 'dev'    #This is the name of database where the RudderStack tables are all stored
+  rs_schema: 'h_5'     #This is the name of schema where the RudderStack tables are all stored
+
+  start_date: '2023-01-01'              #This is the lower bound on date. Only events after this date would be considered. Typically used to ignore data during test setup days. 
+  end_date: '2023-12-31'                #This is the upper bound on date .Default is 'now'; It can be modified to some old date to create snapshot of features as of an older timestamp
+  date_format: 'YYYY-MM-DD'             # This is the date format
+  session_cutoff_in_sec: 1800           # A session is a continuous sequence of events, as long as the events are within this interval. If two consecutive events occur at an interval of greater than this, a new session is created.
+  lookback_days: [7,30,90,365]          # There are various lookback features such as amt_spent_in_past_n_days etc where n takes values from this list. If the list has two values [7, 30], amt_spent_in_past_7_days and amt_spent_in_past_30_days are computed for ex.
+  product_ref_var: 'sku'         #This is the name of the property in the tracks calls that uniquely corresponds to the product
+  category_ref_var: 'category'       #This is the name of the property in the tracks calls that corresponds to the product category
+  main_id: 'dbt_visitor_id'
+
+  card_types: ('mastercard', 'visa')    #These are the types of credit cards(in lowercase) that will be considered to check if the user has a credit card 
+
+  #table id stitcher
+  id-columns: ('anonymous_id', 'user_id')
+  schemas-to-include: ('h_5')
+  tbl_id_stitcher: 'dbt_etl.dbt_aliases_mapping'
+  id_stitcher_name: 'id_graph' # Name of the id stitch table. Usually, something like `rs_user_id_graph`
+  col_id_stitcher_other_id: 'alias' # Name of the column in id stitch table, where the user_id, email_id etc are present
+
+  # All below variables pertain to table names and column names. If the event tracking plan is followed perfectly, it ideally shouldn't need any modifications below.
+  
+  #table ecommerce identifies
+  tbl_ecommerce_identifies: "{{ source('ecommerce', 'identifies') }}"
+  col_ecommerce_identifies_user_id: 'user_id'
+  col_ecommerce_identifies_anonymous_id: 'anonymous_id'
+  col_ecommerce_identifies_email: 'email'
+  col_ecommerce_identifies_age: 'age'
+  col_ecommerce_identifies_timestamp: "{{timestamp_call('timestamp')}}"
+  col_ecommerce_identifies_campaign_source: 'context_page_referrer'
+  col_ecommerce_identifies_device_type: 'context_library_name'
+  col_ecommerce_identifies_gender: 'context_traits_gender'
+  col_ecommerce_identifies_country: 'context_locale'
+  col_ecommerce_identifies_state: 'context_locale'
+
+  #table ecommerce tracks
+  tbl_ecommerce_tracks: "{{ source('ecommerce', 'tracks') }}"
+  col_ecommerce_tracks_user_id: 'user_id'
+  col_ecommerce_tracks_timestamp: "{{timestamp_call('timestamp')}}"
+
+  #table ecommerce product_added
+  tbl_ecommerce_product_added: "{{ source('ecommerce', 'product_added') }}"
+  col_ecommerce_product_added_user_id: 'user_id'
+  col_ecommerce_product_added_properties_cart_id: 'cart_id'
+  col_ecommerce_product_added_timestamp: "{{timestamp_call('timestamp')}}"
+  properties_product_ref_var: 'sku' # This is the column name in the product_added table in warehouse. 
+
+  #table ecommerce order_completed
+  tbl_ecommerce_order_completed: "{{ source('ecommerce', 'order_completed') }}"
+  col_ecommerce_order_completed_user_id: 'user_id'
+  col_ecommerce_order_completed_properties_total: 'total'
+  col_ecommerce_order_completed_timestamp: "{{timestamp_call('timestamp')}}"
+  col_ecommerce_order_completed_properties_products: 'products'
+  var_max_cart_size: 100
+  var_max_list_size: 10
+
+  #table ecommerce checkout_step_completed
+  tbl_ecommerce_checkout_step_completed: "{{ source('ecommerce', 'checkout_step_completed') }}"
+  col_ecommerce_checkout_step_completed_user_id: 'user_id'
+  col_ecommerce_checkout_step_completed_payment_method: 'payment_method'
+  col_ecommerce_checkout_step_completed_timestamp: "{{timestamp_call('timestamp')}}"
+
+
+  #table Patterns downloaded
+  tbl_patterns_downloaded: "{{ source('rs', 'stg_pattern_downloads') }}"
+  col_patterns_downloaded_user_id: 'user_id'
+  col_patterns_downloaded_timestamp: 'download_date'
+
+  # --- web attribution ---
+  # number of trailing hours to re-sessionize for.
+  # events can come in late and we want to still be able to incorporate
+  # them into the definition of a session without needing a full refresh.
+  sessionization_trailing_window: 3
+
+  # sessionization inactivity cutoff: of there is a gap in page view times
+  # that exceeds this number of seconds, the subsequent page view will
+  # start a new session.
+  inactivity_cutoff: 30 * 60
+
+  # If there are extra columns you wish to pass through this package,
+  # define them here. Columns will be included in the `web_sessions`
+  # model as `first_<column>` and `last_<column>`. Extremely useful when
+  # using this package on top of unioned sources, as you can then
+  # pass through a column indicating which source the data is from.
+  pass_through_columns: []
+
+
+  surrogate_key_treat_nulls_as_empty_strings: true
+
+  # --- event analytics ---
+  ea_main_id: anonymous_id
+  start_dt: '2023-01-01'
+  col_timestamp: "{{timestamp_call('timestamp')}}"
+  col_session_id: 'context_session_id'
+  col_referrer: 'context_page_referrer'
+  col_referring_domain: 'context_page_referrer' #'context_page_referring_domain'
+  col_utm_source: 'context_campaign_source'
+  col_utm_medium: 'context_campaign_medium'
+  col_screen_height: 'context_screen_height'
+  col_screen_width: 'context_screen_width'
+  
+
+  # All below variables pertain to table names and column names. If the event tracking plan is followed perfectly, it ideally shouldn't need any modifications below.
+  
+  #table rudder identifies
+  tbl_rudder_identifies: "{{ source('ecommerce', 'identifies') }}"
+
+  #table rudder tracks
+  tbl_rudder_tracks: "{{ source('ecommerce', 'tracks') }}"
+
+  #table rudder pages
+  tbl_rudder_pages: "{{ source('ecommerce', 'pages') }}"
+
+  #table rudder view products
+  tbl_rudder_view_products: "{{ source('ecommerce', 'view') }}"
+
+  ##table rudder screens
+  #tbl_rudder_pages: "{{ source('ecommerce', 'screens') }}"

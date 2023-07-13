@@ -1,0 +1,4 @@
+boto3
+dbt-redshift
+airflow-dbt
+apache-airflow-providers-amazon

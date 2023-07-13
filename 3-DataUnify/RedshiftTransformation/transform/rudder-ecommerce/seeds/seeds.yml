@@ -1,0 +1,17 @@
+version: 2
+
+seeds:
+  - name: referrer_mapping
+    columns:
+      - name: medium
+        tests:
+          - not_null
+
+      - name: source
+        tests:
+          - not_null
+
+      - name: host
+        tests:
+          - unique
+          - not_null

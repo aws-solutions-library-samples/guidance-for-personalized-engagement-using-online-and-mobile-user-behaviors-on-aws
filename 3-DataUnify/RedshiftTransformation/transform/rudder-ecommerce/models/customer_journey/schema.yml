@@ -1,0 +1,9 @@
+version: 2
+
+models:
+  - name: dbt_aliases_mapping
+    columns:
+      - name: alias
+        tests:
+          - unique
+          - not_null
