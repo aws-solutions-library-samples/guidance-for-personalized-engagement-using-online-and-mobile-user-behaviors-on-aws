@@ -8,10 +8,10 @@ To generate mock events and send them to RudderStack data plane
 2. Obtain the RudderStack data plane host
 
 3. to run make_fake_data.py
-```
-pip3 install -r requirements.txt
-export RS_DATA_PLANE=https://<data-plane-host>
-export RS_WRITE_KEY=<source-write-key>
+    ```
+    pip3 install -r requirements.txt
+    export RS_DATA_PLANE=https://<data-plane-host>
+    export RS_WRITE_KEY=<source-write-key>
 
-python3 make_fake_data.py
-```
+    python3 make_fake_data.py
+    ```

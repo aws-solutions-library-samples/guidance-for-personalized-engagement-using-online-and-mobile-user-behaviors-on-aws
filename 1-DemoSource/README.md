@@ -2,7 +2,7 @@
 
 ## JavaScript Source
 
-1. Download the Retail Demo Store Web UI code from: <placeholder>
+1. Download the Retail Demo Store Web UI code from: \<placeholder\>
 
 2. Install the Node JS version 18+.
 

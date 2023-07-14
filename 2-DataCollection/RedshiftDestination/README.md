@@ -42,22 +42,21 @@ To configure Redshift as a destination in RudderStack, follow these steps:
 2. Assign a name to your destination and then click Next.
 
 ### Connection settings
-
-    - **Host**: The host name of your Redshift service.
-    - **Port**: The port number associated with the Redshift database instance.
-    - **Database**: The database name in your Redshift instance where the data will be sent.
-    - **User**: The name of the user with the required read/write access to the above database, the default value is *rudder*.
-    - **Password**: The password for the above user.
-    - **Namespace**: Enter the schema name where RudderStack will create all tables. If you don’t specify any namespace, RudderStack will set this to the source name, by default.
+  - **Host**: The host name of your Redshift service.
+  - **Port**: The port number associated with the Redshift database instance.
+  - **Database**: The database name in your Redshift instance where the data will be sent.
+  - **User**: The name of the user with the required read/write access to the above database, the default value is *rudder*.
+  - **Password**: The password for the above user.
+  - **Namespace**: Enter the schema name where RudderStack will create all tables. If you don’t specify any namespace, RudderStack will set this to the source name, by default.
 
 ### Sync settings
-    - **Sync Frequency**: Specify how often RudderStack should sync the data to your Redshift database. The default value is 'Every 30 minutes'.
+  - **Sync Frequency**: Specify how often RudderStack should sync the data to your Redshift database. The default value is 'Every 30 minutes'.
 
 
 ### Configuring the object storage 
 RudderStack lets you configure the following object storage configuration settings while setting up your Redshift destination:
 
-    - **Staging S3 Storage Bucket Name**: enter a S3 bucket name for the staging files which will be copied into Redshift. The default value is *rudderstack-staging-bucket-<your-account-id>*.
+  - **Staging S3 Storage Bucket Name**: enter a S3 bucket name for the staging files which will be copied into Redshift. The default value is *rudderstack-staging-bucket-<your-account-id>*.
 
 #### Setup S3 Permissions
 
@@ -82,7 +81,7 @@ RudderStack lets you configure the following object storage configuration settin
     ]
     }
     ```
-    The default YOUR_BUCKET_NAME is *rudderstack-staging-bucket-<your-account-id>*.
+    The default YOUR_BUCKET_NAME is *rudderstack-staging-bucket-\<your-account-id\>*.
 
 2. Create an IAM user *rudder-server* with programmatic access keys and attach the above created IAM policy. 
 
@@ -124,8 +123,8 @@ RudderStack lets you configure the following object storage configuration settin
 
 Disable Role Based Authentication.
 
-    - **AWS Access Key ID**: The IAM user *rudder-server*'s Access Key.
-    - **AWS Secret Access Key**: The secret key for the IAM user.
+  - **AWS Access Key ID**: The IAM user *rudder-server*'s Access Key.
+  - **AWS Secret Access Key**: The secret key for the IAM user.
 
 ## Check Syncs Tabs
 

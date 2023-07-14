@@ -90,7 +90,7 @@ STORED AS INPUTFORMAT
   'org.apache.hadoop.mapred.TextInputFormat' 
 OUTPUTFORMAT 
   'org.apache.hadoop.hive.ql.io.HiveIgnoreKeyTextOutputFormat'
-LOCATION 's3://<s3_bucket_path>/rudderstack_firehose'
+LOCATION 's3://<s3_bucket_name>/rudderstack_firehose'
 ;
 
 ```
