@@ -108,14 +108,20 @@ The model is defined in [web_attribution](transform/rudder-ecommerce/models/web_
 
    Along with the above variables, the table names (variables that start with `tbl_` prefix) may need to be changed depending on the schema, both in the dbt_project.yml file and in schema.yml file if they deviate from the ecommerce spec. 
 
-2.  To run the DBT project locally, install the dbt core and dbt redshift plugin. 
+2.  To run the DBT project locally, [install the dbt core and dbt redshift plugin](https://docs.getdbt.com/docs/core/installation). 
 
-    Config the profiles.xml in ~/.dbt/ folder.
+    Config the profiles.yml in ~/.dbt/ folder.
 
     Execute following command to run the project:
     ```
     cd transform/rudder-ecommerce
+    # install dependency
+    dbt deps
     dbt run
+
+    # generate and view docs
+    dbt docs generate
+    dbt docs serve
     ```
 
 3.  To run the DBT project in Apache Airflow. Install docker and docker-compose tools firstly.
@@ -131,6 +137,8 @@ The model is defined in [web_attribution](transform/rudder-ecommerce/models/web_
 
     Next, to start Airflow, run the following command:
     `docker-compose up -d`
+
+    Access the Airflow Web UI in http://localhost:8080
 
     If there is any change to the python packages, try to re-build the Airflow Image using command below:
     `docker-compose build`
