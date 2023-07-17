@@ -33,10 +33,10 @@
         # Install Dependency
         npm ci
         ``` 
-    - 修改bin/eks-blueprints.ts文件, 编辑变量赋予正确的值:
+    - 导出环境变量:
         ```
-        const account = '<your_aws_account_id>';
-        const region = '<your_deploy_region>';
+        export CDK_DEFAULT_ACCOUNT=<your_aws_account_id>;
+        export CDK_DEFAULT_REGION=<your_deploy_region>;
         ```
     - 执行CDK deploy命令，部署EKS集群，遇到提示输入Y:
         ```
@@ -89,7 +89,13 @@
 
     - Ingress组件创建成功后，还需要在Route53的Hosted Zone中添加ALB的Alias DNS记录，将域名解析ALB上。
 
-7. 验证部署，通过https的data plane域名在浏览器里测试data plane的url是否可以正常访问。
+7. 在Amazon Route53的Hosted zone，创建data plane服务的域名解析记录。
+
+    - 打开Hosted zone的管理界面。
+    - 点击"创建记录(create record)"按钮。
+    - 在记录名称(record name)下输入dataplane, 勾选别名（alias），流量路由至选“Applicaiton和Classic Load Balancer“，再选择区域和负载均衡器，编辑负载均衡器的地址，将”dualstack.“删除掉，只保留后面的地址，最后点击创建记录按钮。
+
+8. 验证部署，通过https的data plane域名在浏览器里测试data plane的url是否可以正常访问。
     - 在浏览器中，输入https://<data plane域名>，确认Data Plane的URL可以正常访问。服务正常的话会返回JSON
         ```
         {

@@ -1,10 +1,11 @@
 import 'source-map-support/register';
 import * as cdk from 'aws-cdk-lib';
 import * as blueprints from '@aws-quickstart/eks-blueprints';
+import * as eks from 'aws-cdk-lib/aws-eks';
 
 const app = new cdk.App();
-const account = '<your_aws_account_id>';
-const region = '<your_deploy_region>';
+const account = process.env.CDK_DEFAULT_ACCOUNT;
+const region = process.env.CDK_DEFAULT_REGION;
 
 const addOns: Array<blueprints.ClusterAddOn> = [
     // new blueprints.addons.ArgoCDAddOn(),
@@ -17,11 +18,31 @@ const addOns: Array<blueprints.ClusterAddOn> = [
     // new blueprints.addons.KubeProxyAddOn(),
     new blueprints.addons.EbsCsiDriverAddOn(),
     new blueprints.addons.ContainerInsightsAddOn(),
+    new blueprints.addons.OpaGatekeeperAddOn()
 ];
+
+const clusterProvider = new blueprints.GenericClusterProvider({
+    version: eks.KubernetesVersion.V1_25,
+    managedNodeGroups: [
+        {
+            id: "mng-ondemand",
+            amiType: eks.NodegroupAmiType.AL2_X86_64,
+            desiredSize: 2,
+        }
+    ]
+});
 
 const stack = blueprints.EksBlueprint.builder()
     .account(account)
     .region(region)
+    .clusterProvider(clusterProvider)
     .addOns(...addOns)
     .useDefaultSecretEncryption(true) // set to false to turn secret encryption off (non-production/demo cases)
+    .enableControlPlaneLogTypes(
+        blueprints.ControlPlaneLogType.API,
+        blueprints.ControlPlaneLogType.AUDIT,
+        blueprints.ControlPlaneLogType.AUTHENTICATOR,
+        blueprints.ControlPlaneLogType.CONTROLLER_MANAGER,
+        blueprints.ControlPlaneLogType.SCHEDULER
+        )       
     .build(app, 'eks-blueprint');

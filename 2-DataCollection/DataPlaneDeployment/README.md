@@ -33,10 +33,10 @@ English | [中文](README_CN.md)
         # Install Dependency
         npm ci
         ``` 
-    - Modify the bin/eks-blueprints.ts file and assign the correct values to the variables:
+    - Export environment variables:
         ```
-        const account = '<your_aws_account_id>';
-        const region = '<your_deploy_region>';
+        export CDK_DEFAULT_ACCOUNT=<your_aws_account_id>;
+        export CDK_DEFAULT_REGION=<your_deploy_region>;
         ```
     - Execute the CDK deploy command to deploy the EKS cluster and respond with "Y" when prompted:
         ```
@@ -88,7 +88,13 @@ English | [中文](README_CN.md)
 
     - After the Ingress component is successfully created, add an Alias DNS record for the ALB in the Route53 Hosted Zone to resolve the domain name to the ALB.
 
-7. Verify the deployment by testing the URL of the Data Plane using the HTTPS data plane domain in a web browser.
+7. In Amazon Route53's hosted zone, create domain name resolution records for the data plane service.
+
+    - Open the Hosted Zone administration interface.
+    - Click the “Create Record” button.
+    - Enter "dataplane" under record name textbox, check "Alias" option, select "Applicaiton and Classic Load Balancer" in route traffic to's selection, then select the region and load balancer, edit the load balancer's address, Delete "dualstack." in the address, keep only the following address, and finally click the Create Record button.
+
+8. Verify the deployment by testing the URL of the Data Plane using the HTTPS data plane domain in a web browser.
 
     - In a web browser, enter `https://<data plane domain>`, and confirm that the URL of the Data Plane can be accessed successfully. If the service is functioning properly, it should return a JSON response.  
         ```
