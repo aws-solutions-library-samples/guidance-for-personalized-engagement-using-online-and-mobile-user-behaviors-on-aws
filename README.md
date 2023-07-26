@@ -85,6 +85,10 @@ A DBT project designed to construct data models in Amazon Redshift, which can be
 
 A Jupyter notebook that demonstrates the transformation of raw events data into curated data models.
 
+### 4-Recommendation
+
+This detailed guide on how to implement personalized recommendations specifically utilizes the integration of RudderStack and Amazon Personalize, achieving real-time event tracking to promptly respond to changes in user interests.
+
 ### 9-Tools/JSSourceDataGenerator
 
 A Python script designed to send event requests, containing mock data, from a JavaScript source directly to the RudderStack Data Plane.

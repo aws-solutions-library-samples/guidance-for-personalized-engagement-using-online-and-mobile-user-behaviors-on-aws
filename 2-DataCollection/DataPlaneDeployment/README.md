@@ -110,3 +110,12 @@ English | [中文](README_CN.md)
             "lastRegulationSync": ""
         }
         ```
+
+9. (optional) If you want to uninstall RudderStack Data Plane service, please execute following commands:
+    ```
+    # First uninstall the helm chart of the Data Plane
+    helm uninstall rs-release
+
+    # Then delete the CloudFormation stack of the Amazon EKS cluster created by AWS CDK
+    cdk destroy --all
+    ```

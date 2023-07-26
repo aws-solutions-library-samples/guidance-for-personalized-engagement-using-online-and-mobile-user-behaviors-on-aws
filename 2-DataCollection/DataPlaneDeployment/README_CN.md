@@ -110,3 +110,12 @@
             "lastRegulationSync": ""
         }
         ```
+
+9. （可选）如果需要删除RudderStack Data Plane服务，可以按以下步骤执行命令：
+    ```
+    # 首先删除helm部署的data plane服务
+    helm uninstall rs-release
+
+    # 其次删除由AWS CDK部署的Amazon EKS集群
+    cdk destroy --all
+    ```
