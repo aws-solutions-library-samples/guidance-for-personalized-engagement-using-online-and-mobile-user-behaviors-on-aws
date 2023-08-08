@@ -2,13 +2,15 @@
 
 ## JavaScript Source
 
-1. Download the Retail Demo Store Web UI code from: \<placeholder\>
+1. Download the Retail Demo Store Web UI code from: [retail-demo-store-rudderstack](https://github.com/fengxu1211/retail-demo-store-rudderstack).
 
-2. Install the Node JS version 18+.
+   Then download [.env.template]() and save the file to the project folder.
+
+2. Install the Node JS LTS version on your development environment.
 
 3. Run the following command to start the web UI locally:
     ```
-    cd retail-demo-store-web-ui
+    cd retail-demo-store-rudderstack
     cp .env.template .env
     ```
     And then set following two variables in .env:
