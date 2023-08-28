@@ -1,2 +1,4 @@
 requests
 faker
+pandas
+PyYAML
