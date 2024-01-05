@@ -17,12 +17,12 @@ const addOns: Array<blueprints.ClusterAddOn> = [
     // new blueprints.addons.CoreDnsAddOn(),
     // new blueprints.addons.KubeProxyAddOn(),
     new blueprints.addons.EbsCsiDriverAddOn(),
-    new blueprints.addons.ContainerInsightsAddOn(),
+    new blueprints.addons.CloudWatchInsights(),
     new blueprints.addons.OpaGatekeeperAddOn()
 ];
 
 const clusterProvider = new blueprints.GenericClusterProvider({
-    version: eks.KubernetesVersion.V1_25,
+    version: eks.KubernetesVersion.V1_27,
     managedNodeGroups: [
         {
             id: "mng-ondemand",
