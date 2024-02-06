@@ -83,7 +83,30 @@ RudderStack lets you configure the following object storage configuration settin
     ```
     The default YOUR_BUCKET_NAME is *rudderstack-staging-bucket-\<your-account-id\>*.
 
-2. Create an IAM user *rudder-server* with programmatic access keys and attach the above created IAM policy. 
+2. Create an IAM Role *rudder-server-redshift-role* with trusted entity type equals to "Account" and External ID equals to the Rudderstack's workspace ID and attach the above created IAM policy. 
+
+   Edit the Trust relationships to allow Rudderstack data plane's execution role to assume this role. The trust policy should look like following:
+   ```
+   {
+        "Version": "2012-10-17",
+        "Statement": [
+            {
+                "Effect": "Allow",
+                "Principal": {
+                    "AWS": [
+                        "arn:aws:sts::<accountid>:assumed-role/role-name/session-name"
+                    ]
+                },
+                "Action": "sts:AssumeRole",
+                "Condition": {
+                    "StringEquals": {
+                        "sts:ExternalId": "<workspace ID>"
+                    }
+                }
+            }
+        ]
+    }
+   ```
 
 3. Make sure the Redshift attached IAM roles have enough permissions to read the bucket and the files in the bucket.
 
@@ -117,14 +140,11 @@ RudderStack lets you configure the following object storage configuration settin
     }
     ```
 
-#### Setup Access Key and Secret Key
+#### Setup IAM Role in Destination
 
-![Config AK&SK](./images/redshift-2.png)
+Enable Role Based Authentication.
 
-Disable Role Based Authentication.
-
-  - **AWS Access Key ID**: The IAM user *rudder-server*'s Access Key.
-  - **AWS Secret Access Key**: The secret key for the IAM user.
+  - **IAM Role ARN***: The IAM Role *rudder-server-redshift-role*'s ARN.
 
 ## Check Syncs Tabs
 
