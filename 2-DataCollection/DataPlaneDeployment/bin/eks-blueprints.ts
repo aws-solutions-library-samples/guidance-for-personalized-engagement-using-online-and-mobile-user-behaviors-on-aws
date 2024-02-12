@@ -44,5 +44,5 @@ const stack = blueprints.EksBlueprint.builder()
         blueprints.ControlPlaneLogType.AUTHENTICATOR,
         blueprints.ControlPlaneLogType.CONTROLLER_MANAGER,
         blueprints.ControlPlaneLogType.SCHEDULER
-        )       
-    .build(app, 'eks-blueprint');
+        )
+    .build(app, 'eks-blueprint', {description: 'Guidance for Personalized Engagement Using Online & Mobile User Behaviors on AWS - (SO9386)'});
