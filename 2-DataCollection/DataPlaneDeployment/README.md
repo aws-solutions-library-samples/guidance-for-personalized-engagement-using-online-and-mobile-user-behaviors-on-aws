@@ -22,10 +22,10 @@ English | [中文](README_CN.md)
     
     - Run the `aws configure` command to configure the Access Key, Secret Key, and Region. 
 
-    - In the terminal window, use the following command to clone the code repository: `git clone https://github.com/aws-solutions-library-samples/guidance-for-digital-customer-engagement-on-aws.git`
+    - In the terminal window, use the following command to clone the code repository: `git clone https://github.com/aws-solutions-library-samples/guidance-for-personalized-engagement-using-online-and-mobile-user-behaviors-on-aws.git`
     - Execute the following command to install the dependencies for the CDK project:
         ```
-        cd digital-customer-engagement-on-aws/2-DataCollection/DataPlaneDeployment
+        cd guidance-for-personalized-engagement-using-online-and-mobile-user-behaviors-on-aws/2-DataCollection/DataPlaneDeployment
         
         # Upgrade CDK CLI
         npm install -g aws-cdk --force

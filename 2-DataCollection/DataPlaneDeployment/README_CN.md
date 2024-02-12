@@ -22,10 +22,10 @@
     
     - 运行`aws configure`命令，配置Access Key, Secret Key and Region.
 
-    - 在终端窗口中，使用以下命令克隆代码仓库: `git clone https://github.com/aws-solutions-library-samples/guidance-for-digital-customer-engagement-on-aws.git`
+    - 在终端窗口中，使用以下命令克隆代码仓库: `git clone https://github.com/aws-solutions-library-samples/guidance-for-personalized-engagement-using-online-and-mobile-user-behaviors-on-aws.git`
     - 执行以下命令安装CDK项目的依赖:
         ```
-        cd digital-customer-engagement-on-aws/2-DataCollection/DataPlaneDeployment
+        cd guidance-for-personalized-engagement-using-online-and-mobile-user-behaviors-on-aws/2-DataCollection/DataPlaneDeployment
         
         # Upgrade CDK CLI
         npm install -g aws-cdk --force
