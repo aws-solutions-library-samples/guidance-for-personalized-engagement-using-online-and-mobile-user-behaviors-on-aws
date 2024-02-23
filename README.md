@@ -1,4 +1,4 @@
-# Guidance for Digital Customer Engagement on AWS
+# Guidance for Personalized Engagement Using Online and Mobile User Behaviors on AWS
 
 ## Introduction
 This guidance helps businesses build a comprehensive digital customer engagement platform by leveraging RudderStack's warehouse-first CDP platform and AWS services such as Amazon EKS, Amazon Redshift, Amazon Personalize, and Amazon Quicksight. With RudderStack's platform, businesses can collect and store customer data from various sources, such as mobile apps and websites, and make it available for analysis and engagement. The guidance is designed to support various use cases, including Customer 360, personalized recommendation and advertisement attribution analysis.
@@ -22,7 +22,7 @@ This guidance helps businesses build a comprehensive digital customer engagement
 
 4. The RudderStack Data Plane periodically sends Copy commands, data merge SQL, and DDL to Amazon Redshift Serverless, importing the event data files from the S3 Staging bucket into Amazon Redshift tables.
 
-5. Using Amazon Redshift Serverless, the event table is processed according to analysis requirements to create user behavior analysis detail tables, summary tables, and user profile tables. Use Amazon Managed Workflows for Apache Airflow (MWAA) for task scheduling.
+5. Using Amazon Redshift Serverless, the event table is processed according to analysis requirements to create user behavior analysis detail tables, summary tables, and user profile tables. Use Amazon Managed Workflows for Apache Airflow (Amazon MWAA) for task scheduling.
 
 6. Use Amazon QuickSight to create dashboards like user behavior analysis, web attribution report and funnel analysis, with the data source being the summary level tables read through Amazon Redshift Serverless.
 
