@@ -1,7 +1,7 @@
 # Guidance for Digital Customer Engagement on AWS
 
 ## Introduction
-This guidance helps businesses build a comprehensive digital customer engagement platform by leveraging RudderStack's warehouse-first CDP platform and AWS services such as Amazon Redshift, Amazon Athena, Amazon Pinpoint, and Amazon Quicksight. With RudderStack's platform, businesses can collect and store customer data from various sources, such as mobile apps and websites, and make it available for analysis and engagement. The guidance is designed to support various use cases, including Customer 360, personalized recommendation and advertisement attribution analysis.
+This guidance helps businesses build a comprehensive digital customer engagement platform by leveraging RudderStack's warehouse-first CDP platform and AWS services such as Amazon EKS, Amazon Redshift, Amazon Personalize, and Amazon Quicksight. With RudderStack's platform, businesses can collect and store customer data from various sources, such as mobile apps and websites, and make it available for analysis and engagement. The guidance is designed to support various use cases, including Customer 360, personalized recommendation and advertisement attribution analysis.
 
 
 ## Prerequisites
